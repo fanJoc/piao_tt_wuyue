@@ -145,4 +145,3 @@
         <view class="hide-modal-btn" bindtap="hideActivityDetailModal">关闭</view>
     </view>
 </view>
-<include src="/footer.wxml" />

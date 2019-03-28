@@ -84,7 +84,7 @@ var loginScript = {
     }).then(function (code) {
       return (
         // console.log(code)
-        app.request().get('/wechat/login').query({
+        app.request().get('/wechat/ttlogin').query({
           code: code
         }).end().then(function (res) {
           if (res && res.body && res.body.code == 0) {

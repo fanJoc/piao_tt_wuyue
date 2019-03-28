@@ -1181,10 +1181,11 @@ app.MoviePage({
     },
     checkUserUnPayOrder: function () {
         var that = this;
+        wx.showLoading({ title: '获取座位图...' });
         app.request().get('/order/getUserUnPayOrderInfo').end().then(function (res) {
             var data = res.body.data;
             that.unPayOrderId = data.unPayOrderId;
-
+            
             if (data.hasUnPayOrder) {
                 var pageToastData = setHideValue('loading_hidden', true);
                 that.setData({ pageToastData: pageToastData });
@@ -1211,6 +1212,7 @@ app.MoviePage({
             'schedule_id': this.scheduleId
         }).end().then(function (res) {
             var _seatData = res.body.data;
+            wx.hideLoading();
             if (_seatData && _seatData.roomSeat.length > 0) {
                 _this2.selectSeat = _.find(_seatData.roomSeat, function (item) {
                     return item.status == 'Available';
@@ -1469,6 +1471,7 @@ app.MoviePage({
         var that = this;
         var pageToastData = setHideValue('loading_hidden', false);
         that.setData({pageToastData:pageToastData});
+        wx.showLoading({ title: '获取座位图...' });
         app.request().post('/order/cancle').query({
             ticketOrderId: that.unPayOrderId
         }).end().then(function (res) {

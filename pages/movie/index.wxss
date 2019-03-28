@@ -25,3 +25,6 @@
 .movie-button-num text:first-child {
     font-size: 28rpx;
 }
+.swiper-item-wrap{
+    height: 100%;
+}

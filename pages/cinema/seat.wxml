@@ -135,7 +135,7 @@
         </view>
     </view>
 </view>
-<loading hidden="{{pageToastData.loading_hidden}}" bindchange="loadingChange">获取座位图...</loading>
+<!-- <loading hidden="{{pageToastData.loading_hidden}}" bindchange="loadingChange">获取座位图...</loading> -->
 <loading hidden="{{pageToastData.submitOrder_hidden}}" bindchange="loadingChange">正在为您订座</loading><template is="toast_seats_limit_alert" data="{{...pageToastData}}" /><template is="toast_seats_select_alert" data="{{...pageToastData}}" /><template is="toast_seats_select_alert2" data="{{...pageToastData}}" />
 <block wx:if="{{!!seatData.desc}}">
     <modal confirm-text="知道了" no-cancel hidden="{{pageToastData.otherday_confirm_hidden}}" bindconfirm="confirmDesc">

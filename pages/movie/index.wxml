@@ -1,14 +1,13 @@
 <import src="_movie.wxml" />
-<import src="_popularize.wxml" />
 <import src="_red.wxml" />
-<import src="/pages/search/_search-bar.wxml" />
+<import src="../search/_search-bar.wxml" />
 <view style="position: {{disableScroll}}">
   <template is="search-bar" data="{{ city, mallName, mallDialogInfo, isShowCityToast, cbtcAnimationHide, type: -1, placeholder: '找影视剧、影院', from: 'movie' }}" />
   <block wx:if="{{banner && banner.length}}">
     <swiper autoplay circular interval="4000" duration="500" class="banner">
       <block wx:for="{{banner}}" wx:for-item="bannerItem" wx:key="index">
         <swiper-item>
-          <view catchtap="onTapNavi" data-url="/pages/cinema/movie?movieId={{ bannerItem.movieId }}">
+          <view class="swiper-item-wrap" catchtap="onTapNavi" data-url="/pages/cinema/movie?movieId={{ bannerItem.movieId }}">
             <image src="{{'http://' + bannerItem.imagePath}}" class="slide-image" class="banner" mode="aspectFill" />
           </view>
         </swiper-item>
@@ -38,7 +37,6 @@
         <template is="movie" data="{{ ...movie, from:'hotMovies', bid:'b_yfrrrhw1', activeTab: activeTab }}" />
       </view>
     </view>
-    <template is="popularize" data="{{popItems: array, popShow, showResult, resultText, poped, couponName}}" />
     <template is="red" data="{{showRed, userId}}" />
   </view>
   <template is="city-error-modal" data="{{isShowCityErrorPage, isShowOpenLocationAlertMoal, isShowUseLocationCityConfirmModal, locationCity, mallDialogInfo}}" />
@@ -77,4 +75,3 @@
     </view>
   </view>
 </view>
-<include src="/footer.wxml" />

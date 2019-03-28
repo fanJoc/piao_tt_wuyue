@@ -92,8 +92,6 @@
         </view>
     </navigator>
 </block>
-<include src="../template/networkerror.wxml" />
 <view wx:if="{{ dates.length === 0 || cinemas.length === 0 }}" class="no-cinema error-page middle-center-page">
     <image class="profile-empty" src="/images/profile-empty.png" /><text class="title">暂无该影片的影院信息</text></view><template is="city-error" data="{{isShowCityErrorPage, isShowOpenLocationAlertMoal, isShowUseLocationCityConfirmModal, locationCity}}" /><template is="city-error-modal" data="{{isShowCityErrorPage, isShowOpenLocationAlertMoal, isShowUseLocationCityConfirmModal, locationCity, mallDialogInfo}}"
 />
-<include src="/footer.wxml" />

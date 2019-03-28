@@ -63,6 +63,7 @@ module.exports = {
     locationUtil.addCitys(city);
   },
   onCityChange: function onCityChange(locationCity) {
+    const that = this;
     if (this !== app.page()) {
       return;
     }
@@ -79,9 +80,20 @@ module.exports = {
       if (currentCity.nm !== locationCity.nm) {
         // const lastConfirmCity = app.get('_confirm-city') || {}
         // if (lastConfirmCity.nm !== currentCity.nm) {
-        this.setData({
-          isShowUseLocationCityConfirmModal: true
-        });
+        // this.setData({
+        //   isShowUseLocationCityConfirmModal: true
+        // });
+        wx.showModal({
+          content: '定位到您最近的广场是' + locationCity.nm + mallDialogInfo + '，是否切换至该广场？',
+          confirmText: '切换',
+          success: function (res) {
+            if (res.confirm) {
+              that.onUseLocationCity();
+            } else if (res.cancel) {
+              that.closeUseLocationCityConfirmModal();
+            }
+          }
+        })
         // }
       }
     } else {

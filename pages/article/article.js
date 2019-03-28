@@ -24,7 +24,6 @@ Page({
         this.pageIndex = 1;
         this.openid = 123;
         wx.showLoading({title: '加载中'});
-        wx.showNavigationBarLoading();
         this.getAdvertisements();
         this.geHotRecommendList();
         this.getNewsList();
@@ -94,7 +93,6 @@ Page({
     hideLoading: function() {
         if (this.count == 3) {
             wx.hideLoading();
-            wx.hideNavigationBarLoading();
             this.setData({
                 hiddenWrap: false
             })

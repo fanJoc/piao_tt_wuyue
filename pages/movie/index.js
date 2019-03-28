@@ -44,6 +44,7 @@ app.MoviePage(_extends({}, searchBar, {
     //检查附近的吾悦广场
     checkMall.checkMallIdOnIndex(options.mallId, function (mallInfo) {
       app.$location.city = _extends(app.$location.city,mallInfo);
+      _this.setCity(app.$location.city);
       _this.setData({mallName:wx.getStorageSync('mallInfo').name});
     });
 
@@ -130,7 +131,6 @@ app.MoviePage(_extends({}, searchBar, {
 
     var currentCity = this.data.city;
     var appCity = app.$location.city;
-
     if (appCity) {
       wx.showShareMenu && wx.showShareMenu();
 
@@ -158,6 +158,7 @@ app.MoviePage(_extends({}, searchBar, {
     }
     this.setData({ mallName: mallName });
     this.advertisement();
+    this.onPullDownRefresh();
   },
   advertisement: function advertisement() {
     var _this3 = this;
