@@ -45,7 +45,7 @@
             <image src="http://{{item.imagePath}}" />
         </view>
     </block>
-    <button wx:if="{{btnUser}}" class="login-box-button" open-type="getUserInfo" bindtap="getUserInfo" bindgetuserinfo="bindGetUserInfo">微信授权登录</button>
+    <button wx:if="{{btnUser}}" class="login-box-button" open-type="getUserInfo" bindtap="getUserInfo" bindgetuserinfo="bindGetUserInfo">授权登录</button>
 </view>
 <view class="tip" bindtap="makePhoneCall">客服电话：4008-123-867</view>
 <include src="/footer.wxml" />

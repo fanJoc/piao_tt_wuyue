@@ -1098,13 +1098,13 @@ app.MoviePage({
         // }
         tt.requestPayment({
           data: {
-            app_id: '800071585973',
+            app_id: data.toutiaoPayAppId,
             method: 'tp.trade.confirm',
             sign: data.toutiaoSign,
             sign_type: 'MD5',
             timestamp: data.millisecondTimeSpan.toString(),
             trade_no: data.toutiaoTradeNo,
-            merchant_id: '1900007158',
+            merchant_id: data.toutiaoMerchantId,
             uid: data.openId,
             total_amount: data.orderAmount,
             pay_channel: 'ALIPAY_NO_SIGN',

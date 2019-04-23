@@ -10,7 +10,7 @@ var $requestLimit = 4;
 var $requestList = [];
 var $requestingMap = {};
 var $requests = [];
-var DOMAIN = 'https://api.dev.bestarcinema.yanfaba.cn';
+var DOMAIN = 'https://api.bestarcinema.yanfaba.cn';
 
 module.exports = function (method, url, data, header) {
   if ((typeof method === 'undefined' ? 'undefined' : _typeof(method)) === 'object') {
