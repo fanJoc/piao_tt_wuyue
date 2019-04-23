@@ -63,13 +63,13 @@
     },{
       "text": "购票",
       "pagePath": "pages/movie/index",
-      "iconPath": "images/homepage_default.png",
-      "selectedIconPath": "images/homepage.png"
+      "iconPath": "images/cinema.png",
+      "selectedIconPath": "images/cinema-curr.png"
     }, {
       "text": "我的",
       "pagePath": "pages/user/index",
-      "iconPath": "images/menu-mine.png",
-      "selectedIconPath": "images/my-menu-mine-selected.png"
+      "iconPath": "images/my.png",
+      "selectedIconPath": "images/my-curr.png"
     }]
   },
   "navigateToMiniProgramAppIdList": ["wx224d6de07f908e3d"],

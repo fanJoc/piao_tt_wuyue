@@ -29,6 +29,13 @@
             </view>
         </view>
         <view class="mod-line-20"></view>
+        <view class="mod-flexbox-c buy-title active" bindtap="showActiveDlg" hidden>
+            <view class="mod-flex-1">特惠活动</view>
+            <view class="active-num">
+                <text class="active-curr">-22.2元</text>
+                <text class="arrow"></text>
+            </view>
+        </view>
         <view class="mod-flexbox-c buy-title">
             <view class="mod-flex-1 box-title"><text class="title">票价总计</text></view>
             <view class="box-desc"><text class="desc">（含服务费{{order.seatServiceFee/100}}元/张）</text><text class="pricee mod-fc-primary"> ￥{{ order._totalPrice / 100 }}</text></view>
@@ -249,8 +256,33 @@
     <view class="cp-main">
         <view class="cp-tip">已优惠 {{deductionAmount/100}} 元</view>
         <view>
-            <navigator class="btn-pay" bindsuccess="navSuccess" bindfail="navFail" target="miniProgram" hover-class="none" open-type="navigate" app-id="wx224d6de07f908e3d" path="pages/wuyue_pay/wuyue_pay" extra-data="{{sendParam}}" version="release">去支付</navigator>
+            <!-- <navigator class="btn-pay" bindsuccess="navSuccess" bindfail="navFail" target="miniProgram" hover-class="none" open-type="navigate" app-id="wx224d6de07f908e3d" path="pages/wuyue_pay/wuyue_pay" extra-data="{{sendParam}}" version="release">去支付</navigator> -->
+            <view class="btn-pay" bindtap="onALiPay">去支付</view>
         </view>
     </view>
 </view>
 <include src="/footer.wxml" />
+
+<view class="dialog" hidden="{{hiddenActiveDlg}}">
+    <view class="dialog-mask" bindtap="hideActiveDlg"></view>
+    <view class="dialog-content">
+        <view class="active-dlg-title">特惠活动</view>
+        <radio-group>
+            <view>
+                <label>
+                    <view>不参加活动</view>
+                    <radio color="#00958e"></radio>
+                </label>
+            </view>
+            <view>
+                <label>
+                    <view>
+                        <text>参加活动</text>
+                        <text>共优惠22.2元</text>
+                    </view>
+                    <radio color="#00958e"></radio>
+                </label>
+            </view>
+        </radio-group>
+    </view>
+</view>

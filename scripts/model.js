@@ -52,7 +52,7 @@ module.exports = {
             var item = _keysSort[i];
             str += item + '=' + decodeURIComponent(_param[item]) + '&';
         }
-        str = str.slice(0, -1) + 'NgFc2Q./SQNEPfprtaNOzxSsNl.+IPBU';
+        str = str.slice(0, -1) + 'QKZeN1wF9lDIVuQQe7vF4ioqJ33kdVE2';
         str = md5(str).toLocaleLowerCase();
         return str;
     },

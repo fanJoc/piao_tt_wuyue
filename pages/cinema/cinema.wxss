@@ -23,3 +23,70 @@
     position: relative;
     top: -4rpx;
 }
+.active {
+    display: flex;
+    align-items: center;
+    font-size: 24rpx;
+    padding: 30rpx;
+    color: #00958e;
+    justify-content: space-between;
+}
+.active-btn {
+    padding: 6rpx 10rpx;
+    color: #fff;
+    background: #00958e;
+    border-radius: 2px;
+    margin-right: 20rpx;
+}
+.active-icon text:first-child{
+    color: #666;
+    margin-right: 14rpx;
+}
+.active-icon{
+    display: flex;
+    align-items: center;
+}
+.active-icon image{
+    width: 14rpx;
+}
+.dialog, .dialog-mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 99;
+}
+.dialog-mask {
+    background: rgba(0, 0, 0, .7);
+}
+.tip {
+    background: #fff;
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    padding: 40rpx;
+    font-size:28rpx;
+}
+.tip-title {
+    text-align: center;
+    margin-bottom: 30rpx;
+}
+.tip-intro {
+    padding: 20rpx 0;
+    border-bottom: 1px solid #ccc;
+}
+.tip-info {
+    padding: 20rpx 0;
+}
+.tip-info view {
+    margin-bottom: 28rpx;
+    line-height: 1.4;
+}
+.active-pirce{
+    font-size: 26rpx;
+}
+.active-pirce view:first-child{
+    color: #ff6633;
+    padding-bottom: 8rpx;
+}

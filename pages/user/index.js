@@ -78,9 +78,28 @@ app.MoviePage({
       }
     }).catch(function (err) {});
   },
-
-  bindGetUserInfo: function bindGetUserInfo(e) {
-    var userInfo = e.detail.userInfo;
+  getUserInfo(){
+    const that = this;
+    wx.login({
+      success: function(res){
+        tt.getUserInfo({
+          success(res){
+            that.bindGetUserInfo(res.userInfo);
+          },
+          fail(){
+            tt.openSetting({
+              success(res){
+                if(res.authSetting && res.authSetting['scope.userInfo']){
+                  that.getUserInfo();
+                }
+              }
+            })
+          }
+        })
+      }
+    })
+  },
+  bindGetUserInfo: function bindGetUserInfo(userInfo) {
     userInfo.session_key = this.userInfo.session_key;
     userInfo.openid = this.userInfo.openid;
     userInfo.sessionId = this.userInfo.sessionId;

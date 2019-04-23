@@ -424,3 +424,19 @@ image {
     bottom: 40rpx;
     right: 24rpx;
 }
+.cinema-origin {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 22rpx;
+    padding-bottom: 4rpx;
+}
+.cinema-origin text:nth-child(2) {
+    font-size: 32rpx;
+}
+.cinema-sale {
+    color: #ff6633;
+}
+.cinema-sale text:nth-child(2) {
+    font-size: 34rpx;
+    font-weight: bold;
+}

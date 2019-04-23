@@ -67,7 +67,7 @@ function version(v) {
 function populars(offset, limit) {
   limit = limit || 12;
   offset = offset || 0;
-  return app.request().get('/movie/list').config('key', 'movies').query({
+  return app.request().get('/movie/list').header({'mallcoo-mall-id': wx.getStorageSync('mallId')}).config('key', 'movies').query({
     cityno: app.$location.city ? app.$location.city.id : 110100
   }).end().then(function (res) {
     var data = res.body.data;

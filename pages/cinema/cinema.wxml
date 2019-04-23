@@ -28,7 +28,7 @@
             </block>
             <view class="movie-card1 movie-card-end"></view>
         </view>
-        <scroll-view scroll-x="true" style="position:absolute;left:0;top:0;right:0;bottom:0;">
+        <scroll-view scroll-x="true" style="position:absolute;left:0;top:0;right:0;bottom:0;" bindscroll="bindscroll">
             <view style="width:754rpx;height:292rpx;" bindtouchstart="touchstart" bindtouchmove="touchmove" bindtouchend="touchend" bindtouchcancel="touchcancel" bindtap="tapMovie"></view>
         </scroll-view>
     </view>
@@ -45,6 +45,16 @@
             </block>
         </view>
     </scroll-view>
+    <view class="active" bindtap="showActiveTipDlg" hidden>
+        <view class="active-tip">
+            <text class="active-btn">活动</text>
+            <text>特惠购票，抢完即止！</text>
+        </view>
+        <view class="active-icon">
+            <text>没人限购2张</text>
+            <image src="../../images/arrow.png" mode="widthFix"></image>
+        </view>
+    </view>
     <block wx:if="{{preInfo.length}}">
         <view class="pre-info {{ vipInfo && vipInfo.length ? '' : 'one-px-border-bottom' }}" bindtap="showActivityCell">
             <view class="tag">活动</view>
@@ -68,16 +78,24 @@
                         <view class="type">{{item.lan}}{{item.type}}</view>
                         <view class="hall text-ellipsis">{{item.roomname}}</view>
                     </view>
-                    <view class="show-price {{item.vipPrice && item.vipPriceName ? 'left' : ''}}">
-                        <view class="maoyan-price-wrapper">
-                            <view class="maoyan-price"><text>{{item.price / 100}}</text></view>
-                            <block wx:if="{{item.vipPrice && item.vipPriceName}}">
-                                <view class="vip-price-wrapper"><text class="vip-label">{{item.vipPriceName}}</text><text class="vip-price">{{item.price / 100}}元</text></view>
-                            </block>
+                    <block wx:if="{{true}}">
+                        <view class="show-price {{item.vipPrice && item.vipPriceName ? 'left' : ''}}">
+                            <view class="maoyan-price-wrapper">
+                                <view class="maoyan-price"><text>{{item.price / 100}}</text></view>
+                                <block wx:if="{{item.vipPrice && item.vipPriceName}}">
+                                    <view class="vip-price-wrapper"><text class="vip-label">{{item.vipPriceName}}</text><text class="vip-price">{{item.price / 100}}元</text></view>
+                                </block>
+                            </view>
+                            <view class="cinema-price">{{item.extraDesc}}</view>
+                            <view class="cinema-tip" wx:if="{{item.offerInfo}}">{{item.offerInfo}}</view>
                         </view>
-                        <view class="cinema-price">{{item.extraDesc}}</view>
-                        <view class="cinema-tip" wx:if="{{item.offerInfo}}">{{item.offerInfo}}</view>
-                    </view>
+                    </block>
+                    <block wx:else>
+                        <view class="show-price active-pirce">
+                            <view>特惠19.9元</view>
+                            <view>原价33元</view>
+                        </view>
+                    </block>
                     <view class="show-buy">
                         <navigator class="buy-but">购票</navigator>
                         <block wx:if="{{item.ticketStatus <= 3 || item.ticketStatus === 5}}">
@@ -143,5 +161,21 @@
             <view class="rules-item" wx:for="{{preDetail.rules}}">{{item}}</view>
         </view>
         <view class="hide-modal-btn" bindtap="hideActivityDetailModal">关闭</view>
+    </view>
+</view>
+<!-- <include src="/footer.wxml" /> -->
+
+<view class="dialog" hidden="{{hiddenActiveTip}}">
+    <view class="dialog-mask" bindtap="hideActiveTipDlg"></view>
+    <view class="dialog-content tip">
+        <view class="tip-title">活动说明</view>
+        <view class="tip-intro">优惠活动，每位用户限量抢购</view>
+        <view class="tip-info">
+            <view>活动规则</view>
+            <view>1、特惠票每位用户限量抢购，数量有限，抢完即止。同一账号，手机号，移动设备（手机，ipad）将视为同一用户。</view>
+            <view>2、选座特惠场次仅限部分场次。</view>
+            <view>3、下单时如果不符合活动规则，将按原价进行下单或取消订单。</view>
+            <view>4、在参加活动过程中，如果出现作弊行为（如批量注册、恶意购买、虚假分享、虚假交易等），吾悦将自动取消您本次活动订单，并有权取消您后续参与吾悦任意活动的权利，必要时追究法律责任。</view>
+        </view>
     </view>
 </view>

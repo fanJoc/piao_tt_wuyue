@@ -32,7 +32,8 @@ app.MoviePage({
     disSwitch: false,
     isConfirmPay: false,
     hiddenWrap: true,
-    submitBtnName: '确认订单'
+    submitBtnName: '确认订单',
+    hiddenActiveDlg: true
   },
   onLoad: function onLoad(options) {
     var _this = this;
@@ -519,6 +520,12 @@ app.MoviePage({
         withDiscountCard: e.detail.value
       }
     });
+  },
+  showActiveDlg: function(){
+    this.setData({hiddenActiveDlg:false});
+  },
+  hideActiveDlg: function(){
+    this.setData({hiddenActiveDlg:true});
   },
 
   // 活动与抵用券
@@ -1070,38 +1077,55 @@ app.MoviePage({
     app.request().post('/order/payment').query({
       'ticketOrderId': this.orderId,
       'goodsType': goodsType,
-      'numbers': numbers.join()
+      'numbers': numbers.join(),
+      'payType': 2
     }).end().then(function (res) {
-      console.log(res.body);
+      wx.hideLoading();
       if (res.body.code == 0) {
         var data = res.body.data;
-        if(data.jumpPiaoyouPay){
-          wx.hideLoading();
-          _this8.data.sendParam.price = data.thirdPartyPaymentAmount / 100;
-          _this8.setData({
-            isConfirmPay:true,
-            deductionAmount:data.deductionAmount
-          });
-        } else {
-          wx.redirectTo({
-            url: '../order/orderdraw?ticketOrderId=' + _this8.orderId
-          })
-        }
-        // wx.requestPayment({
-        //   'timeStamp': data.timeStamp,
-        //   'nonceStr': data.nonceStr,
-        //   'package': data.packageValue,
-        //   'signType': data.signType,
-        //   'paySign': data.paySign,
-        //   'success': function success(res) {
-        //     wx.redirectTo({
-        //       url: './order-details?ticketOrderId=' + _orderId + '\'&orderSeatsText=\'' + _orderSeatsText
-        //     });
-        //   },
-        //   'fail': function fail(res) {
-        //     this.toast('\u652F\u4ED8\u672A\u6210\u529F\uFF0C\u8BF7\u91CD\u8BD5');
-        //   }
-        // });
+        console.log('data',data);
+        // if(data.jumpPiaoyouPay){
+        //   wx.hideLoading();
+        //   _this8.data.sendParam.price = data.thirdPartyPaymentAmount / 100;
+        //   _this8.setData({
+        //     isConfirmPay:true,
+        //     deductionAmount:data.deductionAmount
+        //   });
+        // } else {
+        //   wx.redirectTo({
+        //     url: '../order/orderdraw?ticketOrderId=' + _this8.orderId
+        //   })
+        // }
+        tt.requestPayment({
+          data: {
+            app_id: '800071585973',
+            method: 'tp.trade.confirm',
+            sign: data.toutiaoSign,
+            sign_type: 'MD5',
+            timestamp: data.millisecondTimeSpan.toString(),
+            trade_no: data.toutiaoTradeNo,
+            merchant_id: '1900007158',
+            uid: data.openId,
+            total_amount: data.orderAmount,
+            pay_channel: 'ALIPAY_NO_SIGN',
+            pay_type: 'ALIPAY_APP',
+            risk_info: JSON.stringify({
+              ip: '127.0.0.1'
+            }),
+            params: JSON.stringify({
+              url: data.alipayParams
+            }),
+          },
+          success(res) {
+            console.log('支付成功:', res)
+            wx.redirectTo({
+              url: '../order/orderdraw?ticketOrderId=' + _this8.orderId
+            })
+          },
+          fail(res){
+            console.log('fail',res);
+          }
+        })
       } else {
         wx.hideLoading();
         _this8.toast(res.body.msg);
@@ -1222,6 +1246,9 @@ app.MoviePage({
   //     }
   //   });
   // }),
+  onALiPay: () => {
+    console.log('alipay')
+  },
   onInputMobile: function onInputMobile(e) {
     this.data.order.mobilePhone = e.detail.value;
   },

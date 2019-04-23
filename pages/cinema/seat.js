@@ -623,7 +623,37 @@ app.MoviePage({
             displayHeight: 9
         },
         seatImgMap: seatImgMap,
-        tel: ''
+        tel: '',
+        isActive: true,
+        activeRemainNum: 2,
+        originPrice: 200,
+        activePrice: 100
+    },
+    refreshCurrentPrice: function () {
+        var isActive = this.data.isActive,
+            activeRemainNum = this.data.activeRemainNum,
+            originPrice = this.data.originPrice,
+            activePrice = this.data.activePrice,
+            selectedData = this.data.selectedData;
+        if (isActive && selectedData.length > 0) {
+            selectedData.map(function (item) {
+                item.currentPrice = activePrice
+            })
+            if (selectedData.length > activeRemainNum) {
+                wx.showToast({
+                    title: '您已享受过优惠，后续单价以原价展示',
+                    icon: 'none'
+                });
+                selectedData.slice(activeRemainNum).map(function (item) {
+                    item.currentPrice = originPrice;
+                })
+            }
+        } else {
+            selectedData.map(function (item) {
+                item.currentPrice = originPrice
+            })
+        }
+        this.setData({ selectedData: selectedData });
     },
     findSelectedSeats: function findSelectedSeats(selectedSeats) {
         if (!selectedSeats.length) return;
@@ -730,7 +760,7 @@ app.MoviePage({
         var target = e.currentTarget;
         var self = this;
         console.log(target.dataset.no);
-
+        
         //已选择的座位信息
         var checkedSeats = {};
 
@@ -805,6 +835,7 @@ app.MoviePage({
             selectedData: selectedData,
             checkedSeats: JSON.stringify(checkedSeats)
         });
+        // this.refreshCurrentPrice();
     },
     //选择推荐座位
     handleRecommend: function handleRecommend(e) {
@@ -819,7 +850,7 @@ app.MoviePage({
         }
         var selectedData = getSelectedData(newSeatData);
         var checkedSeats = getSelectedSeats(selectedData);
-
+        
         updateBuyBlock(this, selectedData);
 
         this.toast(remindText, 1500);
@@ -848,6 +879,7 @@ app.MoviePage({
         );
 
         handleScale(this, scaleInfo, true);
+        // this.refreshCurrentPrice();
     },
     //取消已选择座位
     handleCancelSeat: function handleCancelSeat(e) {
@@ -866,6 +898,8 @@ app.MoviePage({
             expression: selectedData.length > 0 ? seatData.seatsPrice[selectedData.length]['expression'] : '',
             checkedSeats: JSON.stringify(checkedSeats)
         });
+
+        // this.refreshCurrentPrice();
     },
     onSubmitOrder: function onSubmitOrder(e) {
         // app.checkLogin({
@@ -1185,7 +1219,7 @@ app.MoviePage({
         app.request().get('/order/getUserUnPayOrderInfo').end().then(function (res) {
             var data = res.body.data;
             that.unPayOrderId = data.unPayOrderId;
-            
+
             if (data.hasUnPayOrder) {
                 var pageToastData = setHideValue('loading_hidden', true);
                 that.setData({ pageToastData: pageToastData });

@@ -31,7 +31,8 @@ app.MoviePage({
     preDetail: {}, // 活动详请
     showPage: false, // 是否展示页面
     showRed: false,
-    userId: 0
+    userId: 0,
+    hiddenActiveTip: true
   },
   onLoad: function onLoad(options) {
     var _this2 = this;
@@ -142,6 +143,12 @@ app.MoviePage({
       phoneNumber: this.data.cinema.tel
     })
   },
+  showActiveTipDlg: function(){
+    this.setData({hiddenActiveTip:false});
+  },
+  hideActiveTipDlg: function(){
+    this.setData({hiddenActiveTip:true});
+  },
   getWidgetParam: function getWidgetParam(paramName, data) {
     if (paramName === 'query') {
       if ('wxSearchQuery' in data) {
@@ -193,7 +200,7 @@ app.MoviePage({
     }
   },
   onPullDownRefresh: function onPullDownRefresh() {
-    this.onShow();
+    this.getMovieList();
   },
   showMap: function showMap() {
     wx.openLocation({
@@ -222,6 +229,7 @@ app.MoviePage({
     var offset = parseInt((e.detail.x + 60) / app.$systemInfo.windowWidth * 375 / 100, 10) - 2;
     if (offset === 0) return;
     this.movieChange(index + offset);
+    this.beginScroll = false;
   },
   movieChange: function movieChange(index) {
     if (index < 0) index = 0;
@@ -249,7 +257,7 @@ app.MoviePage({
   getMovieList: function getMovieList() {
     var _this3 = this;
 
-    app.request().get('/cinema/movieList').query({
+    app.request().get('/cinema/movieList').header({'mallcoo-mall-id': wx.getStorageSync('mallId')}).query({
       cinema_no: this.cinemaId
     }).end().then(function (res) {
       if (res.statusCode === 200 && res.body.code == 0) {
@@ -326,8 +334,11 @@ app.MoviePage({
 
     var location = app.$location;
     var userInfo = app.$user;
-
-    app.request().get('/movie/schedule').query({
+    wx.showLoading({
+      title: '加载中...',
+      mask: true
+    });
+    app.request().get('/movie/schedule').header({'mallcoo-mall-id': wx.getStorageSync('mallId')}).query({
       cinema_no: this.cinemaId,
       movie_no: this.movieId
     })
@@ -338,6 +349,7 @@ app.MoviePage({
     .end().then(function (res) {
 
       wx.stopPullDownRefresh();
+      wx.hideLoading();
       _this5.loading(false);
 
       if (res.statusCode === 200 && res.body.code === 0 && res.body.data.sche) {
@@ -494,7 +506,12 @@ app.MoviePage({
     this.finger.move(e);
   },
   touchend: function touchend(e) {
-    this.finger.end(e);
+    if(this.beginScroll){
+      this.finger.end(e);
+    }
+  },
+  bindscroll: function(){
+    this.beginScroll = true;
   },
   touchcancel: function touchcancel(e) {
     this.finger.cancel(e);
