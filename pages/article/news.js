@@ -42,7 +42,7 @@ Page({
                 movieId: data.bottomAds[0].movie.movieID
             });
             that.getRandomNews(data.randomNews);
-            WxParse.wxParse('article', 'html', data.newsInfo.content, that, 5);
+            WxParse.wxParse('article', 'html', that.fomateArticleContent(data.newsInfo.content), that, 5);
             wx.hideLoading();
             that.setData({
                 hiddenLoading: true,
@@ -54,6 +54,11 @@ Page({
                 }, 500)
             })
         })
+    },
+    fomateArticleContent(cnt) {
+        let imgs = cnt.match(/<img [^>]*src=['"]([^'"]+)[^>]*>/gi);
+        let lastImg = imgs[imgs.length - 1];
+        return cnt.replace(lastImg, '');
     },
     formatCount: function(num){
         var num = parseInt(num);
