@@ -36,7 +36,7 @@ app.MoviePage({
   },
   onLoad: function onLoad(options) {
     var _this2 = this;
-    checkMall.checkMallId(options.mallId);
+    checkMall.checkMallId(options.mallId, 0);
     this.options = options;
     var cinemaName = options.cinemaName,
         cinemaAddress = options.cinemaAddress,
@@ -379,6 +379,7 @@ app.MoviePage({
           }
         }
         _this5.setData({
+          movieSchedule: movieSchedule,
           dates: scheduleDates,
           plist: scheduleList,
           day: firstDate,

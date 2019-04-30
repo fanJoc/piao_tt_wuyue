@@ -45,13 +45,13 @@
             </block>
         </view>
     </scroll-view>
-    <view class="active" bindtap="showActiveTipDlg" hidden>
+    <view class="active" bindtap="showActiveTipDlg" wx:if="{{movieSchedule.hasSubsidy}}">
         <view class="active-tip">
             <text class="active-btn">活动</text>
-            <text>特惠购票，抢完即止！</text>
+            <text>{{movieSchedule.subsidyTitle}}</text>
         </view>
         <view class="active-icon">
-            <text>没人限购2张</text>
+            <text>每人限购{{movieSchedule.maxTicketQuantityPerUser}}张</text>
             <image src="../../images/arrow.png" mode="widthFix"></image>
         </view>
     </view>
@@ -66,7 +66,7 @@
     </block>
     <view class="show-container">
         <block wx:for="{{plist}}" wx:key="seqNo">
-            <navigator catchtap="onTapNavigator" data-tip="{{ item.forbiddenTip }}" data-url="{{'./seat?scheduleId='+item.scheduleId+'&movieId='+movieId+'&showTime='+item.time+'&cinemaName='+cinema.nm+'&price='+item.price / 100+'&cinemaId='+cinemaId+ (sourceOrderId? '&sourceOrderId='+sourceOrderId+'&source='+source+'&seatCount='+seatCount: '')}}">
+            <navigator catchtap="onTapNavigator" data-tip="{{ item.forbiddenTip }}" data-url="{{'./seat?scheduleId='+item.scheduleId+'&movieId='+movieId+'&showTime='+item.time+'&cinemaName='+cinema.nm+'&price='+item.price / 100+'&subsidyPrice='+item.subsidyPrice / 100+'&cinemaId='+cinemaId+ (sourceOrderId? '&sourceOrderId='+sourceOrderId+'&source='+source+'&seatCount='+seatCount: '')}}">
                 <view class="show {{ item.nextDay ? 'show-has-tip':'' }} {{ item.preShowTag ? 'has-pre-show' : ''}}">
                     <view class="next-day-tip" wx:if="{{item.nextDay}}">次日放映</view>
                     <view class="pre-show-tag" wx:if="{{item.preShowTag}}">点映</view>
@@ -78,7 +78,7 @@
                         <view class="type">{{item.lan}}{{item.type}}</view>
                         <view class="hall text-ellipsis">{{item.roomname}}</view>
                     </view>
-                    <block wx:if="{{true}}">
+                    <block wx:if="{{!item.hasSubsidy}}">
                         <view class="show-price {{item.vipPrice && item.vipPriceName ? 'left' : ''}}">
                             <view class="maoyan-price-wrapper">
                                 <view class="maoyan-price"><text>{{item.price / 100}}</text></view>
@@ -92,8 +92,8 @@
                     </block>
                     <block wx:else>
                         <view class="show-price active-pirce">
-                            <view>特惠19.9元</view>
-                            <view>原价33元</view>
+                            <view>特惠{{item.subsidyPrice / 100}}元</view>
+                            <view>原价{{item.price / 100}}元</view>
                         </view>
                     </block>
                     <view class="show-buy">

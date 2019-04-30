@@ -641,7 +641,8 @@ app.MoviePage({
             })
             if (selectedData.length > activeRemainNum) {
                 wx.showToast({
-                    title: '您已享受过优惠，后续单价以原价展示',
+                    title: '优惠票还可以再购' + activeRemainNum + '张，其余购票不再享受优惠',
+                    duration: 3000,
                     icon: 'none'
                 });
                 selectedData.slice(activeRemainNum).map(function (item) {
@@ -835,7 +836,7 @@ app.MoviePage({
             selectedData: selectedData,
             checkedSeats: JSON.stringify(checkedSeats)
         });
-        // this.refreshCurrentPrice();
+        this.refreshCurrentPrice();
     },
     //选择推荐座位
     handleRecommend: function handleRecommend(e) {
@@ -879,7 +880,7 @@ app.MoviePage({
         );
 
         handleScale(this, scaleInfo, true);
-        // this.refreshCurrentPrice();
+        this.refreshCurrentPrice();
     },
     //取消已选择座位
     handleCancelSeat: function handleCancelSeat(e) {
@@ -899,7 +900,7 @@ app.MoviePage({
             checkedSeats: JSON.stringify(checkedSeats)
         });
 
-        // this.refreshCurrentPrice();
+        this.refreshCurrentPrice();
     },
     onSubmitOrder: function onSubmitOrder(e) {
         // app.checkLogin({
@@ -1248,6 +1249,12 @@ app.MoviePage({
             var _seatData = res.body.data;
             wx.hideLoading();
             if (_seatData && _seatData.roomSeat.length > 0) {
+                _this2.setData({
+                    isActive:_seatData.hasSubsidy,
+                    activeRemainNum: _seatData.remainSubsidySeatCount,
+                    originPrice: _this2.options.price,
+                    activePrice: _seatData.subsidyPrice / 100
+                })
                 _this2.selectSeat = _.find(_seatData.roomSeat, function (item) {
                     return item.status == 'Available';
                 });

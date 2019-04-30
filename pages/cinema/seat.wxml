@@ -92,7 +92,7 @@
                             <view class="selected-seats {{idx == 3 ? 'selected-seats-last' : ''}}" style="background-color:{{cancelColor}};" catchtap="handleCancelSeat" data-no="{{selectedItem.seatNo}}">
                                 <view class="selected-seats-main">
                                     <view>{{selectedItem.rowId}}排{{selectedItem.columnId}}座</view>
-                                    <block wx:if="{{false}}">
+                                    <block wx:if="{{isActive}}">
                                         <view class="selected-seats-num">￥{{selectedItem.currentPrice}}</view>
                                     </block>
                                     <block wx:else>

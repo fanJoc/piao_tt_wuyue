@@ -42,19 +42,19 @@
         </view>
         <view class="mod-line-20"></view>
         <view class="price-cells panel list-view" style="margin:0;">
-            <view class="list-view-item">
+            <view class="list-view-item" wx:if="{{order.codeRateEnabled}}">
                 <view class="clearfix">
                     <view class="pull-left">优惠券</view>
                     <view class="pull-right" bindtap="onTapMerchantCoupon" data-goodsType="2"><text class="desc">{{availableList.length > 0 ? (checkedText != '' && goodsType == 2 ? checkedText : '去使用') : '无可用'}}</text><text class="color-red"></text><text class="arrow"></text></view>
                 </view>
             </view>
-            <view class="list-view-item">
+            <view class="list-view-item" wx:if="{{order.redpackageRateEnabled}}">
                 <view class="clearfix">
                     <view class="pull-left">红包</view>
                     <view class="pull-right" bindtap="onTapMerchantCoupon" data-goodsType="3"><text class="desc">{{redPacket.length > 0 ? (checkedText != '' && goodsType == 3 ? checkedText : '去使用') : '无可用'}}</text><text class="color-red"></text><text class="arrow"></text></view>
                 </view>
             </view>
-            <view class="list-view-item">
+            <view class="list-view-item" wx:if="{{order.cardRateEnabled}}">
                 <view class="clearfix">
                     <view class="pull-left">观影卡</view>
                     <view class="pull-right" bindtap="onTapMaoyanActivityAndCoupon" data-goodsType="1"><text class="desc">{{cards.length > 0 ? (checkedText != '' && goodsType == 1 ? checkedText : '去使用') : '无可用'}}</text><text class="color-red"></text><text class="arrow"></text></view>

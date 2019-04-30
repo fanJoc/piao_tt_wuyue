@@ -80,16 +80,16 @@
                 <view class="address">近期场次：{{item.nearlyShowtime}}</view>
             </view>
             <view>
-                <block wx:if="{{false}}">
+                <block wx:if="{{item.hasSubsidy}}">
                     <view>
                         <view class="cinema-origin">
                             <text>原价</text>
-                            <text>23</text>
+                            <text>{{item.lowestPrice / 100}}</text>
                             <text>元起</text>
                         </view>
                         <view class="cinema-sale">
                             <text>特惠</text>
-                            <text>19</text>
+                            <text>{{item.subsidyPrice / 100}}</text>
                             <text>元起</text>
                         </view>
                     </view>
