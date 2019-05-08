@@ -163,18 +163,20 @@ module.exports = {
     app.set('_confirm-city', this.data.locationCity, { expires: 12 * 60 * 60 });
   },
   onUseLocationCity: function onUseLocationCity() {
-    var city = this.data.locationCity;
-    this.checkMallInfo(city);
-    this.closeUseLocationCityConfirmModal();
-    this.setCity(city);
-    this.saveCity(city);
-    // wx.setStorage({
-    //   key: "_ctiy",
-    //   data: city
-    // })
-    this.onPullDownRefresh && this.onPullDownRefresh(1);
+    const that = this;
+    var city = that.data.locationCity;
+    that.checkMallInfo(city, function () {
+      that.closeUseLocationCityConfirmModal();
+      that.setCity(city);
+      that.saveCity(city);
+      // wx.setStorage({
+      //   key: "_ctiy",
+      //   data: city
+      // })
+      that.onPullDownRefresh && that.onPullDownRefresh(1);
+    });
   },
-  checkMallInfo: function (city) {
+  checkMallInfo: function (city,cb) {
     var that = this;
     wx.getLocation({
       type: 'wgs84',
@@ -194,6 +196,7 @@ module.exports = {
           if(mallInfo.mallId){
             wx.setStorageSync('mallId', mallInfo.mallId);
           }
+          cb();
         })
       }
     })

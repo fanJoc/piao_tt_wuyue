@@ -1491,6 +1491,20 @@ app.MoviePage({
         // 页面渲染完成
     },
     onShow: function onShow() {
+        var userId = wx.getStorageSync('userId');
+        if (!userId || userId <= 0) {
+            wx.hideLoading();
+            wx.showModal({
+                content: '检测到您当前未登录头条帐号，请登录后选座购票',
+                showCancel: false,
+                success() {
+                    wx.switchTab({
+                        url: '../movie/index'
+                    })
+                }
+            })
+            return;
+        }
         this.checkUserUnPayOrder();
         // var _this3 = this;
         // if (app.$ticketOrderId) {

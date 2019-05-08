@@ -131,6 +131,7 @@ app.MoviePage(_extends({}, searchBar, {
 
     var currentCity = this.data.city;
     var appCity = app.$location.city;
+
     if (appCity) {
       wx.showShareMenu && wx.showShareMenu();
 
@@ -140,14 +141,11 @@ app.MoviePage(_extends({}, searchBar, {
       //   pop.renderBar.call(this);
       // }
       loginScript.openId().then(function () {
-        if (!_this2.data.movies || currentCity.id !== appCity.id) {
-          if (!_this2.data.movies) {
-            _this2.loading();
-          }
-
-          _this2.onPullDownRefresh();
+        if (!_this2.data.movies) {
+          _this2.loading();
         }
-
+        
+        _this2.onPullDownRefresh();
         _this2.setCity(appCity);
       });
     }
