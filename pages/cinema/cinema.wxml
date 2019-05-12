@@ -51,7 +51,7 @@
             <text>{{movieSchedule.subsidyTitle}}</text>
         </view>
         <view class="active-icon">
-            <text>每人限购{{movieSchedule.maxTicketQuantityPerUser}}张</text>
+            <text>特惠票每人限购{{movieSchedule.maxTicketQuantityPerUser}}张</text>
             <image src="../../images/arrow.png" mode="widthFix"></image>
         </view>
     </view>

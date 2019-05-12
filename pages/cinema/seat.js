@@ -642,7 +642,8 @@ app.MoviePage({
             })
             if (selectedData.length > activeRemainNum) {
                 wx.showToast({
-                    title: '优惠票还可以再购' + activeRemainNum + '张，其余购票不再享受优惠',
+                    // title: '优惠票还可以再购' + activeRemainNum + '张，其余购票不再享受优惠',
+                    title: '无可用优惠票，其余票将按原价购买',
                     duration: 3000,
                     icon: 'none'
                 });

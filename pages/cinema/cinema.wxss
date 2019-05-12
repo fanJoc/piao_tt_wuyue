@@ -9,6 +9,12 @@
     align-items: flex-end;
     flex: 2.2;
 }
+.show .show-price view:nth-child(2){
+    font-size: 22rpx;
+    text-decoration: line-through;
+    position: relative;
+    top: 4rpx;
+}
 .cinema-tip {
     color: white;
     background: #f29700;

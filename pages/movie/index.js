@@ -132,7 +132,7 @@ app.MoviePage(_extends({}, searchBar, {
 
     var currentCity = this.data.city;
     var appCity = app.$location.city;
-
+    _this2.setData({activeTab: 'hot'});
     if (appCity) {
       wx.showShareMenu && wx.showShareMenu();
 

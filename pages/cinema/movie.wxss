@@ -427,8 +427,10 @@ image {
 .cinema-origin {
     color: #999;
     text-decoration: line-through;
-    font-size: 22rpx;
+    font-size: 20rpx;
     padding-bottom: 4rpx;
+    position: relative;
+    top: -26rpx;
 }
 .cinema-origin text:nth-child(2) {
     font-size: 32rpx;
@@ -436,6 +438,8 @@ image {
 .cinema-sale {
     color: #ff6633;
     padding-bottom: 10rpx;
+    position: relative;
+    top: -12rpx;
 }
 .cinema-sale text:nth-child(2) {
     font-size: 34rpx;
