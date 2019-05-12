@@ -1,6 +1,6 @@
 <template name="search-bar">
   <view class="wxMovieHeader {{from === 'movie' ? 'white-bg' : ''}}">
-    <navigator url="/pages/citys/citys" class="change-city" wx:if="{{city && city.nm}}" hover-class="none">
+    <navigator url="/pages/citys/citys" class="change-city" hover-class="none">
       <image src="/images/map.png"></image>
       <text>{{city && city.nm}}{{mallName && ' - '+mallName}}</text>
     </navigator>

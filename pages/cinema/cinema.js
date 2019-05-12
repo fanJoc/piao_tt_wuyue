@@ -11,6 +11,7 @@ var util = app.require('scripts/util');
 var _ = app.require('scripts/underscore.modified');
 var red = require('../movie/_red');
 var checkMall = require('../../scripts/check-mall');
+import {recordUserStep} from '../../scripts/utils';
 
 var _app$require = app.require('scripts/movie'),
     get_bonus = _app$require.get_bonus;
@@ -193,7 +194,15 @@ app.MoviePage({
     red.hide.call(this);
   },
   onShow: function onShow() {
-
+    const options = this.options;
+    recordUserStep({
+      movieId: options.movieId,
+      cinemaId: options.cinemaId,
+      showtimeId: -1,
+      orderId: -1,
+      activateType: options.activateType,
+      recordType: 3
+    })
     // 改签中不加载卖品列表
     if (!this.data.sourceOrderId) {
       this.getDealList();

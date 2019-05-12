@@ -41,7 +41,7 @@
     </view>
 </view>
 <block wx:for="{{ cinemas }}">
-    <navigator class="cinema-navi" catchtap="onTapNavi" data-url="./cinema?cinemaId={{item.cinemaId}}&movieId={{movie.movieno}}&movieName={{movie.name}}&day={{day}}&cinemaName={{item.cinemaName}}&cinemaAddress={{item.cinemaAddress}}&latitude={{item.latitude}}&longitude={{item.longitude}}&cinemaTelephone={{item.cinemaTelephone}}">
+    <navigator class="cinema-navi" catchtap="onTapNavi" data-url="./cinema?cinemaId={{item.cinemaId}}&movieId={{movie.movieno}}&movieName={{movie.name}}&day={{day}}&cinemaName={{item.cinemaName}}&cinemaAddress={{item.cinemaAddress}}&latitude={{item.latitude}}&longitude={{item.longitude}}&cinemaTelephone={{item.cinemaTelephone}}&activateType={{item.activateType}}">
         <view class="cinema-container one-px-border-bottom cinema-main">
             <view class="cinema-cnt">
                 <view class="label" wx:if="{{ item.mark === 3 }}">会员</view>

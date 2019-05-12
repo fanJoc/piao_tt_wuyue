@@ -7,6 +7,7 @@ var Date2 = require('../../scripts/date2.js');
 var searchBar = require('../search/_search-bar');
 var util = require('../../scripts/util.js');
 var checkMall = require('../../scripts/check-mall');
+import {recordUserStep} from '../../scripts/utils';
 
 var defaultPaging = {
   offset: 0,
@@ -198,6 +199,14 @@ app.MoviePage(_extends({}, searchBar, {
       'mallcoo-mall-id': mallId
     }).query(requestData).end().then(function (res) {
       try {
+        recordUserStep({
+          movieId: _this3.movieId,
+          cinemaId: -1,
+          showtimeId: -1,
+          orderId: -1,
+          activateType: res.body.data.cinemaEntities[0].activateType,
+          recordType: 2
+        })
         _this3.loading(false);
         if (res.body.code === 0 && res.body.data) {
           console.log(res);

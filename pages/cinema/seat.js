@@ -12,6 +12,7 @@ var _ = app.require('scripts/underscore.modified');
 var seatRule = app.require('scripts/seat-rule');
 var checkMall = require('../../scripts/check-mall');
 var PROD = true;
+import {recordUserStep} from '../../scripts/utils';
 
 var seatData = {};
 var recommendData = [];
@@ -1082,7 +1083,14 @@ app.MoviePage({
         }
         // var flag = 1
         risk.params(); // 预调用, 提高获取参数的速度
-
+        recordUserStep({
+            movieId: options.movieId,
+            cinemaId: options.cinemaId,
+            showtimeId: options.scheduleId,
+            orderId: -1,
+            activateType: options.activateType,
+            recordType: 4
+        })
         this.finger = new Finger({
             multipointStart: function multipointStart(e) {
                 scaleTo = Number(self.data.scaleInfo.scaleTo);
@@ -1243,7 +1251,7 @@ app.MoviePage({
         var _this2 = this;
 
         var self = this;
-        app.request().get('/seat/list').query({
+        app.request().get('/seat/list').header({'mallcoo-mall-id': wx.getStorageSync('mallId')}).query({
             'schedule_id': this.scheduleId
         }).end().then(function (res) {
             var _seatData = res.body.data;

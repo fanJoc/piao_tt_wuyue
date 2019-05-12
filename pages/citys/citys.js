@@ -135,7 +135,11 @@ app.MoviePage({
           hiddenMallList: false,
         });
       } else {
-        that.chooseMall();
+        // that.chooseMall();
+        wx.showModal({
+          content: res.body.msg,
+          showCancel: false
+        })
       }
     })
   },

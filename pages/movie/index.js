@@ -22,6 +22,7 @@ var store = require('../../scripts/store');
 var searchBar = require('../search/_search-bar');
 var loginScript = require('../../scripts/login');
 var checkMall = require('../../scripts/check-mall');
+import { recordUserStep } from '../../scripts/utils';
 
 app.MoviePage(_extends({}, searchBar, {
   needCity: true,
@@ -144,7 +145,7 @@ app.MoviePage(_extends({}, searchBar, {
         if (!_this2.data.movies) {
           _this2.loading();
         }
-        
+
         _this2.onPullDownRefresh();
         _this2.setCity(appCity);
       });
@@ -156,7 +157,7 @@ app.MoviePage(_extends({}, searchBar, {
     }
     this.setData({ mallName: mallName });
     this.advertisement();
-    this.onPullDownRefresh();
+    // this.onPullDownRefresh();
   },
   advertisement: function advertisement() {
     var _this3 = this;
@@ -221,6 +222,14 @@ app.MoviePage(_extends({}, searchBar, {
       // this.getMostExpectedMovies()
       this.getComingMovies();
     }
+    recordUserStep({
+      movieId: -1,
+      cinemaId: -1,
+      showtimeId: -1,
+      orderId: -1,
+      activateType: 0,
+      recordType: 1
+    })
   },
   fetchMovies: function fetchMovies(offset) {
     var _this4 = this;

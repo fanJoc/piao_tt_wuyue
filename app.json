@@ -56,11 +56,6 @@
     "borderStyle": "black",
     "backgroundColor": "#FFFFFF",
     "list": [{
-      "text": "推荐",
-      "pagePath": "pages/article/article",
-      "iconPath": "images/article.png",
-      "selectedIconPath": "images/article-curr.png"
-    },{
       "text": "购票",
       "pagePath": "pages/movie/index",
       "iconPath": "images/cinema.png",

@@ -22,6 +22,9 @@ var location = {
 
     this.lastLocationTime = +new Date();
     this.locationPromise = promisify.wx2promise(wx.getLocation).then(function (res) {
+      if(res.city){
+        delete res.city
+      }
       _this.set(res);
       return res;
     });

@@ -5,6 +5,7 @@ var Date2 = require('../../scripts/date2.js');
 var modal = require('../../scripts/modal.js');
 var risk = require('../../scripts/risk.js');
 var date = require('../../scripts/date.js');
+import {recordUserStep} from '../../scripts/utils';
 
 var PROD = true;
 var PROD_PAY = true;
@@ -68,6 +69,16 @@ app.MoviePage({
       if (res.body.code == 0) {
         // console.log(res.body.data);
         var orderInfo = res.body.data;
+
+        recordUserStep({
+          movieId: orderInfo.movieId,
+          cinemaId: orderInfo.cinemaId,
+          showtimeId: orderInfo.showtimeId,
+          orderId: orderInfo.id,
+          activateType: orderInfo.activateType,
+          recordType: 5
+        })
+
         _this.payEndDate = orderInfo.orderEndTime * 1;
         _this._totalPrice = orderInfo.totalPrice;
         orderInfo.orderShowTime = Date2(orderInfo.showtime).toString('EMM-dd HH:mm');

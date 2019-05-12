@@ -66,7 +66,7 @@
     </block>
     <view class="show-container">
         <block wx:for="{{plist}}" wx:key="seqNo">
-            <navigator catchtap="onTapNavigator" data-tip="{{ item.forbiddenTip }}" data-url="{{'./seat?scheduleId='+item.scheduleId+'&movieId='+movieId+'&showTime='+item.time+'&cinemaName='+cinema.nm+'&price='+item.price / 100+'&subsidyPrice='+item.subsidyPrice / 100+'&cinemaId='+cinemaId+ (sourceOrderId? '&sourceOrderId='+sourceOrderId+'&source='+source+'&seatCount='+seatCount: '')}}">
+            <navigator catchtap="onTapNavigator" data-tip="{{ item.forbiddenTip }}" data-url="{{'./seat?scheduleId='+item.scheduleId+'&activateType='+item.activateType+'&movieId='+movieId+'&showTime='+item.time+'&cinemaName='+cinema.nm+'&price='+item.price / 100+'&subsidyPrice='+item.subsidyPrice / 100+'&cinemaId='+cinemaId+ (sourceOrderId? '&sourceOrderId='+sourceOrderId+'&source='+source+'&seatCount='+seatCount: '')}}">
                 <view class="show {{ item.nextDay ? 'show-has-tip':'' }} {{ item.preShowTag ? 'has-pre-show' : ''}}">
                     <view class="next-day-tip" wx:if="{{item.nextDay}}">次日放映</view>
                     <view class="pre-show-tag" wx:if="{{item.preShowTag}}">点映</view>
